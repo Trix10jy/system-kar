@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Kary Nitrex Familly</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #eef2f3, #ffffff);
+      margin: 0;
+      padding: 40px;
+      color: #2c3e50;
+      animation: fadeIn 1s ease-in-out;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 40px;
+      font-size: 2.5em;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: slideIn 1s ease-in-out;
+    }
+    .tier {
+      margin-bottom: 50px;
+      opacity: 0;
+      animation: fadeUp 1s forwards;
+    }
+    .tier h2 {
+      border-left: 6px solid #3498db;
+      padding-left: 15px;
+      color: #2c3e50;
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      animation: tableFadeIn 1s ease-in-out;
+    }
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #2980b9;
+      color: white;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #f4f8fb;
+    }
+    input[type="checkbox"] {
+      transform: scale(1.5);
+      transition: transform 0.3s ease-in-out;
+    }
+    input[type="checkbox"]:checked {
+      transform: scale(1.6);
+    }
+    .total-box {
+      margin-top: 30px;
+      font-size: 1.2em;
+      text-align: center;
+      padding: 15px;
+      background-color: #ecf0f1;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .total-box strong {
+      font-size: 1.5em;
+      color: #2980b9;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes slideIn {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes tableFadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kary Nitrex Familly</h1>
+
+  <div id="kary"></div>
+
+  <div class="total-box">
+    <strong>Łączna kwota do zapłaty: <span id="total">0</span>$</strong>
+  </div>
+
+  <script>
+    const data = [
+      {
+        tier: "TIER 1 – Drobne przewinienia",
+        cost: 5000,
+        items: [
+          ["Brak aktywności 2 dni – upomnienie / obserwacja"],
+          ["Ignorowanie poleceń – degradacja"],
+          ["Nieobecność na wojnie – zakaz magazynu"],
+          ["Nieodpowiednie zachowanie na czacie – upomnienie"],
+          ["Ignorowanie zasad – ostrzeżenie"],
+          ["Nieobecność na spotkaniach – kara $"],
+          ["Opóźnienia w realizacji zadań – upomnienie"],
+          ["Złośliwe komentarze – kara $"]
+        ]
+      },
+      {
+        tier: "TIER 2 – Średnie przewinienia",
+        cost: 25000,
+        items: [
+          ["Kradzież z magazynu – degradacja + kara $"],
+          ["Kłamanie zarządowi – publiczne rozliczenie"],
+          ["Rozprzestrzenianie info – tymczasowy ban"],
+          ["Używanie niewłaściwego języka – ostrzeżenie + kara $"],
+          ["Naruszenie zasad współpracy – kara $"],
+          ["Nieprawidłowe przechowywanie materiałów – kara $"],
+          ["Złe zachowanie na spotkaniach – publiczne upomnienie"],
+          ["Zła organizacja działań – kara $"]
+        ]
+      },
+      {
+        tier: "TIER 3 – Poważne przewinienia",
+        cost: 100000,
+        items: [
+          ["Wynoszenie info – kick + blacklist + PK (opcjonalnie)"],
+          ["Współpraca z CRIME – perma wyrzucenie"],
+          ["Podburzanie członków – publiczne ukaranie + blacklist"],
+          ["Złośliwe zachowanie – kick + kara $"],
+          ["Wielokrotne łamanie zasad – PK + blacklist"],
+          ["Poważne oszustwa – perma ban + blacklist"],
+          ["Złośliwe rozprzestrzenianie nieprawdziwych informacji – kara $"],
+          ["Utrudnianie pracy innym członkom – kara $"]
+        ]
+      },
+      {
+        tier: "TIER 4 – Krytyczne przewinienia",
+        cost: 250000,
+        items: [
+          ["MG / PG / bug abuse – wyrzucenie + zgłoszenie do administracji"],
+          ["Korzystanie z cheatów – ban na stałe"],
+          ["Złośliwe usuwanie przedmiotów – wyrzucenie + zgłoszenie do administracji"],
+          ["Powtarzające się łamanie zasad – PK + blacklist"],
+          ["Nadużywanie władzy – wyrzucenie + kara $"],
+          ["Oszukiwanie administracji – wyrzucenie + zgłoszenie do administracji"],
+          ["Złośliwe niszczenie majątku – perma ban"],
+          ["Używanie nielegalnych modyfikacji – ban na stałe"]
+        ]
+      },
+      {
+        tier: "TIER 5 – Do wyjaśnienia z liderem",
+        cost: 0,
+        items: [
+          ["Podejrzenie o zdradę – rozmowa z liderem"],
+          ["Konflikt między wyższymi rangami – decyzja lidera"],
+          ["Zachowanie niepasujące do klimatu – ocena indywidualna"],
+          ["Powtarzające się problemy z aktywnością – ocena indywidualna"],
+          ["Nieobecność podczas ważnych wydarzeń – ocena indywidualna"],
+          ["Nieetyczne zachowanie – ocena indywidualna"],
+          ["Wzbudzanie niepotrzebnych kontrowersji – rozmowa z liderem"],
+          ["Problemy z komunikacją wewnętrzną – ocena indywidualna"]
+        ]
+      }
+    ];
+
+    const container = document.getElementById("kary");
+    let total = 0;
+
+    function updateTotal() {
+      const checkboxes = document.querySelectorAll("input[type=checkbox]");
+      total = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked && parseInt(cb.dataset.cost) > 0) {
+          total += parseInt(cb.dataset.cost);
+        }
+      });
+      document.getElementById("total").innerText = total.toLocaleString();
+    }
+
+    data.forEach(tierData => {
+      const tierDiv = document.createElement("div");
+      tierDiv.className = "tier";
+
+      const title = document.createElement("h2");
+      title.innerText = `${tierData.tier} (Kwota do zapłaty: ${tierData.cost > 0 ? tierData.cost.toLocaleString() + "$" : "Niedostępna"})`;
+      tierDiv.appendChild(title);
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      thead.innerHTML = `<tr><th></th><th>Kara</th><th>Kwota</th></tr>`;
+      table.appendChild(thead);
+
+      const tbody = document.createElement("tbody");
+      tierData.items.forEach(desc => {
+        const row = document.createElement("tr");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.dataset.cost = tierData.cost;
+        checkbox.onchange = updateTotal;
+
+        row.innerHTML = `<td></td><td>${desc[0]}</td><td>${tierData.cost > 0 ? tierData.cost.toLocaleString() + "$" : "Niedostępna"}</td>`;
+        row.cells[0].appendChild(checkbox);
+        tbody.appendChild(row);
+      });
+
+      table.appendChild(tbody);
+      tierDiv.appendChild(table);
+      container.appendChild(tierDiv);
+    });
+  </script>
+
+</body>
+</html>
